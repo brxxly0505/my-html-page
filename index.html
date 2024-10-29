@@ -2,40 +2,42 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>流程開始</title>
+    <title>根據 ID 顯示不同內容</title>
+    <style>
+      .content {
+        font-size: 24px;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+    </style>
     <script>
-      // 彈出流程開始的視窗，並在按下確認後發送請求
-      function startProcess() {
-        alert("流程開始");
-        
-        // 獲取 binID 的值，例如從 URL 查詢參數中
+      // 解析 URL 中的 ID 並根據不同的值顯示內容
+      function displayContent() {
+        // 獲取 URL 查詢參數
         const urlParams = new URLSearchParams(window.location.search);
-        const binID = urlParams.get('binID');
-        
-        // 檢查 binID 是否存在
-        if (binID) {
-          // 發送第二個 GET 請求到 Power Automate 的 URL
-          fetch(`https://prod-104.westeurope.logic.azure.com/workflows/b56cb214affd4dc6a83a6c16ceb3470f/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=6uVlElFNDIhUuJ06Ge6B4sIDaTrFpT0Izn1xdmEK5zk&binID=1`)
-            .then(response => response.json())
-            .then(data => {
-              // 根據返回的數據，顯示不同的 alert
-              if (data.message) {
-                alert(data.message);
-              } else {
-                alert("無效的 binID");
-              }
-            })
-            .catch(error => {
-              console.error("錯誤:", error);
-              alert("發生錯誤，請稍後再試");
-            });
+        const id = urlParams.get('id'); // 取得 id 參數的值
+
+        // 根據不同的 ID 顯示不同的內容
+        let contentElement = document.getElementById("dynamic-content");
+        if (id === "A") {
+          contentElement.textContent = "您選擇了 A 內容";
+        } else if (id === "B") {
+          contentElement.textContent = "這是 B 的內容";
+        } else if (id === "C") {
+          contentElement.textContent = "歡迎來到 C 內容頁面";
         } else {
-          alert("未找到 binID");
+          contentElement.textContent = "無效的 ID，請確認連結";
         }
       }
+      
+      // 當頁面加載時執行 displayContent 函數
+      window.onload = displayContent;
     </script>
 </head>
-<body onload="startProcess()">
-  <h1>流程即將開始...</h1>
+<body>
+    <div class="content">
+        <p id="dynamic-content">正在載入內容...</p>
+    </div>
 </body>
 </html>
