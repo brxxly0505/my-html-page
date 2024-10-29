@@ -17,26 +17,33 @@
       }
     </style>
     <script>
-      function displayContent() {
+      async function displayContent() {
         // 取得 URL 中的 id 參數
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id'); // 取得 id 參數的值
 
-        // 根據 id 設置預設選項和提示文字
-        let selectedMessage = "";
-        if (id === "A") {
-          document.getElementById("optionA").checked = true;
-          selectedMessage = "您選擇了 A";
-        } else if (id === "B") {
-          document.getElementById("optionB").checked = true;
-          selectedMessage = "您選擇了 B";
-        } else if (id === "C") {
-          document.getElementById("optionC").checked = true;
-          selectedMessage = "您選擇了 C";
-        }
+        // 獲取 JSON 資料
+        try {
+          const response = await fetch('data.json');
+          const data = await response.json();
 
-        // 顯示提示訊息
-        document.getElementById("selected-message").textContent = selectedMessage;
+          // 根據 id 設置預設選項和顯示料號
+          let contentMessage = "";
+          let partNumber = data[id]; // 查詢 id 對應的料號
+
+          if (partNumber) {
+            document.getElementById("option" + id).checked = true;
+            contentMessage = `您選擇了 ${id}\n料號是: ${partNumber}`;
+          } else {
+            contentMessage = "無效的 ID，請確認連結";
+          }
+
+          // 顯示提示訊息
+          document.getElementById("selected-message").textContent = contentMessage;
+        } catch (error) {
+          console.error("無法載入資料:", error);
+          document.getElementById("selected-message").textContent = "無法載入資料";
+        }
       }
       
       // 當頁面加載時執行 displayContent 函數
@@ -57,6 +64,22 @@
         <label>
           <input type="radio" id="optionC" name="options" value="C">
           C
+        </label><br>
+        <label>
+          <input type="radio" id="optionD" name="options" value="D">
+          D
+        </label><br>
+        <label>
+          <input type="radio" id="optionE" name="options" value="E">
+          E
+        </label><br>
+        <label>
+          <input type="radio" id="optionF" name="options" value="F">
+          F
+        </label><br>
+        <label>
+          <input type="radio" id="optionG" name="options" value="G">
+          G
         </label>
         <div class="message" id="selected-message"></div>
     </div>
