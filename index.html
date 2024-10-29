@@ -2,33 +2,41 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>根據 ID 顯示不同內容</title>
+    <title>選擇內容顯示</title>
     <style>
-      .content {
+      .container {
         font-size: 24px;
         font-family: Arial, sans-serif;
-        text-align: center;
         margin-top: 50px;
+        text-align: center;
+      }
+      .message {
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 28px;
       }
     </style>
     <script>
-      // 解析 URL 中的 ID 並根據不同的值顯示內容
       function displayContent() {
-        // 獲取 URL 查詢參數
+        // 取得 URL 中的 id 參數
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id'); // 取得 id 參數的值
 
-        // 根據不同的 ID 顯示不同的內容
-        let contentElement = document.getElementById("dynamic-content");
+        // 根據 id 設置預設選項和提示文字
+        let selectedMessage = "";
         if (id === "A") {
-          contentElement.textContent = "您選擇了 A 內容";
+          document.getElementById("optionA").checked = true;
+          selectedMessage = "您選擇了 A";
         } else if (id === "B") {
-          contentElement.textContent = "這是 B 的內容";
+          document.getElementById("optionB").checked = true;
+          selectedMessage = "您選擇了 B";
         } else if (id === "C") {
-          contentElement.textContent = "歡迎來到 C 內容頁面";
-        } else {
-          contentElement.textContent = "無效的 ID，請確認連結";
+          document.getElementById("optionC").checked = true;
+          selectedMessage = "您選擇了 C";
         }
+
+        // 顯示提示訊息
+        document.getElementById("selected-message").textContent = selectedMessage;
       }
       
       // 當頁面加載時執行 displayContent 函數
@@ -36,8 +44,21 @@
     </script>
 </head>
 <body>
-    <div class="content">
-        <p id="dynamic-content">正在載入內容...</p>
+    <div class="container">
+        <h2>選擇一個選項</h2>
+        <label>
+          <input type="radio" id="optionA" name="options" value="A">
+          A
+        </label><br>
+        <label>
+          <input type="radio" id="optionB" name="options" value="B">
+          B
+        </label><br>
+        <label>
+          <input type="radio" id="optionC" name="options" value="C">
+          C
+        </label>
+        <div class="message" id="selected-message"></div>
     </div>
 </body>
 </html>
