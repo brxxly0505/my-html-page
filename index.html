@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>流程開始</title>
+    <script>
+      // 彈出流程開始的視窗，並在按下確認後發送請求
+      function startProcess() {
+        alert("流程開始");
+        
+        // 獲取 binID 的值，例如從 URL 查詢參數中
+        const urlParams = new URLSearchParams(window.location.search);
+        const binID = urlParams.get('binID');
+        
+        // 檢查 binID 是否存在
+        if (binID) {
+          // 發送第二個 GET 請求到 Power Automate 的 URL
+          fetch(`https://your-power-automate-url.com?binID=${binID}`)
+            .then(response => response.json())
+            .then(data => {
+              // 根據返回的數據，顯示不同的 alert
+              if (data.message) {
+                alert(data.message);
+              } else {
+                alert("無效的 binID");
+              }
+            })
+            .catch(error => {
+              console.error("錯誤:", error);
+              alert("發生錯誤，請稍後再試");
+            });
+        } else {
+          alert("未找到 binID");
+        }
+      }
+    </script>
+</head>
+<body onload="startProcess()">
+  <h1>流程即將開始...</h1>
+</body>
+</html>
