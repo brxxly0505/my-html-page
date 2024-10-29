@@ -15,7 +15,7 @@
         // 檢查 binID 是否存在
         if (binID) {
           // 發送第二個 GET 請求到 Power Automate 的 URL
-          fetch(`https://your-power-automate-url.com?binID=${binID}`)
+          fetch(`https://prod-104.westeurope.logic.azure.com/workflows/b56cb214affd4dc6a83a6c16ceb3470f/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=6uVlElFNDIhUuJ06Ge6B4sIDaTrFpT0Izn1xdmEK5zk&binID=1`)
             .then(response => response.json())
             .then(data => {
               // 根據返回的數據，顯示不同的 alert
