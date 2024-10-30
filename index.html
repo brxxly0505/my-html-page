@@ -73,6 +73,12 @@
                 })
                 .catch(error => console.error('Error fetching data:', error));
         });
+
+        function handleCancel() {
+            alert('您已取消');
+            const container = document.querySelector('.container');
+            container.innerHTML = '<div class="form-item">謝謝光臨</div>';
+        }
     </script>
 </head>
 <body>
@@ -88,7 +94,7 @@
         </div>
         <div class="buttons">
             <button class="btn confirm" onclick="alert('Confirmed')">確認</button>
-            <button class="btn cancel" onclick="alert('Cancelled')">取消</button>
+            <button class="btn cancel" onclick="handleCancel()">取消</button>
         </div>
     </div>
 </body>
