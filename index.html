@@ -81,9 +81,16 @@
         }
 
         function handleConfirm() {
-            alert('請至TEAMS內群組回覆確認單');
             const bin = document.getElementById('bin').textContent;
             const partNumber = document.getElementById('partNumber').textContent;
+
+            // Check if either bin or part number is 'Not Found'
+            if (bin === 'Not Found' || partNumber === 'Not Found') {
+                alert('找不到此項目，請重新再試一次');
+                return;
+            }
+
+            alert('請至TEAMS內群組回覆確認單');
 
             // Replace this with your Power Automate URL
             const powerAutomateUrl = "https://prod-104.westeurope.logic.azure.com:443/workflows/b56cb214affd4dc6a83a6c16ceb3470f/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=6uVlElFNDIhUuJ06Ge6B4sIDaTrFpT0Izn1xdmEK5zk";
