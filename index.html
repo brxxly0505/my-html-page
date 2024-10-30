@@ -79,6 +79,38 @@
             const container = document.querySelector('.container');
             container.innerHTML = '<div class="form-item" style="display: flex; justify-content: center; align-items: center; height: 100vh; width: 100%; font-weight: bold;">謝謝光臨</div>';
         }
+
+        function handleConfirm() {
+            alert('Confirmed');
+            const bin = document.getElementById('bin').textContent;
+            const partNumber = document.getElementById('partNumber').textContent;
+
+            // Replace this with your Power Automate URL
+            const powerAutomateUrl = "https://prod-xx.westus.logic.azure.com:443/workflows/xxxxxxxxxxxxxxxxxxxxxx/triggers/manual/paths/invoke?api-version=2016-10-01&sp=xxxx";
+
+            // Create the payload
+            const payload = {
+                bin: bin,
+                partNumber: partNumber
+            };
+
+            // Send the POST request
+            fetch(powerAutomateUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Power Automate flow triggered successfully.');
+                } else {
+                    console.error('Error triggering Power Automate flow.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
     </script>
 </head>
 <body>
@@ -93,7 +125,7 @@
             料號: <span id="partNumber">_______</span>
         </div>
         <div class="buttons">
-            <button class="btn confirm" onclick="alert('Confirmed')">確認</button>
+            <button class="btn confirm" onclick="handleConfirm()">確認</button>
             <button class="btn cancel" onclick="handleCancel()">取消</button>
         </div>
     </div>
