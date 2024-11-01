@@ -92,6 +92,10 @@
 
             alert('請至TEAMS內群組回覆確認單');
 
+            // Replace the container content with a new message
+            const container = document.querySelector('.container');
+            container.innerHTML = '<div class="form-item" style="display: flex; justify-content: center; align-items: center; height: 100vh; width: 100%; font-weight: bold;">至TEAMS內確認需求後，才會正式送出請求!</div>';
+
             // Replace this with your Power Automate URL
             const powerAutomateUrl = "https://prod-104.westeurope.logic.azure.com:443/workflows/b56cb214affd4dc6a83a6c16ceb3470f/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=6uVlElFNDIhUuJ06Ge6B4sIDaTrFpT0Izn1xdmEK5zk";
 
